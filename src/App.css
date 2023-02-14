@@ -72,11 +72,11 @@ div.price {
     text-align: right;
 }
 
-div.red {
+div.debit {
     color: red;
 }
 
-div.green {
+div.credit {
     color: green;
 }
 

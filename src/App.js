@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <main>
       <h1>$400.00</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit="">
         <div className="basic">
         <input 
         type="text" 
@@ -43,6 +43,7 @@ function App() {
          description={"Gains from btc buying and selling"}
          price={"+$500"}
          datetime={"02/13/2023, 03:27"}
+         transactionType={"credit"}
         />
 
         <Transaction
@@ -50,6 +51,7 @@ function App() {
          description={"it was time for new TV"}
          price={"-$600"}
          datetime={"02/13/2023, 03:27"}
+         transactionType={"debit"}
         />
 
         <Transaction
@@ -57,6 +59,7 @@ function App() {
          description={"Sale of my Iphone 13"}
          price={"+$900"}
          datetime={"02/13/2023, 03:27"}
+         transactionType={"credit"}
         />
       </div>
       </main>

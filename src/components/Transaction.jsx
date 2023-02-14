@@ -1,6 +1,6 @@
 import React from "react";
 
-const Transaction = ({ name, description, price, datetime }) => {
+const Transaction = ({ name, description, price, datetime, transactionType }) => {
   return (
     <div className="transaction">
 
@@ -10,7 +10,7 @@ const Transaction = ({ name, description, price, datetime }) => {
     </div>
 
     <div className="right">
-      <div className="price">{price}</div>
+      <div className={`price ${transactionType}`}>{price}</div>
       <div className="datetime">{datetime}</div>
     </div>
   </div>
