@@ -1,4 +1,7 @@
 import './App.css'
+
+import React from 'react'
+
 import Transaction from './components/Transaction'; 
 import { useState } from 'react';
 
@@ -7,12 +10,15 @@ function App() {
   const [item, setItem] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
+  function submitTransaction () {
+    
+  }
 
   return (
     <div className="App">
       <main>
-      <h1>$400.00</h1>
-      <form onSubmit="">
+      <h1>$400<span>.00</span></h1>
+      <form onSubmit={submitTransaction}>
         <div className="basic">
         <input 
         type="text" 
