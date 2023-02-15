@@ -10,8 +10,21 @@ function App() {
   const [item, setItem] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
-  function submitTransaction () {
-    
+
+  function submitTransaction (e) {
+    e.preventDefault();
+    const url = process.env.REACT_APP_API_URL + '/transaction'
+    // console.log(url);
+    fetch(url, {
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify({item, description, dateTime})
+     }).then(response => {
+      response.json().then(json => {
+        console.log('result', json);
+      });
+     });
+
   }
 
   return (
@@ -24,7 +37,7 @@ function App() {
         type="text" 
         placeholder="Add new item"
         value={item}
-        onchange={(e) => setItem(e.target.value)}
+        onChange={(e) => setItem(e.target.value)}
         />
 
         <input 

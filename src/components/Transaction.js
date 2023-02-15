@@ -1,11 +1,11 @@
 import React from "react";
 
-const Transaction = ({ name, description, price, datetime, transactionType }) => {
+const Transaction = ({ item, description, price, datetime, transactionType }) => {
   return (
     <div className="transaction">
 
     <div className="left">
-      <div className="name">{name}</div>
+      <div className="name">{item}</div>
       <div className="description">{description}</div>
     </div>
 
