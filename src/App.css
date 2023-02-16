@@ -64,7 +64,7 @@ div.transaction  {
 }
 
 div.description, div.datetime {
-    font-style: italic;
+    /* font-style: italic; */
     font-size: 0.8rem;
 }
 

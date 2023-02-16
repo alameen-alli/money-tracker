@@ -4,6 +4,7 @@ import React from 'react'
 
 import Transaction from './components/Transaction'; 
 import { useState } from 'react';
+// import { response } from 'express';
 
 function App() {
 
@@ -13,17 +14,24 @@ function App() {
 
   function submitTransaction (e) {
     e.preventDefault();
-    const url = process.env.REACT_APP_API_URL + '/transaction'
-    // console.log(url);
-    fetch(url, {
+    
+    const url = process.env.REACT_APP_API_URL+'/transaction';
+    const price = item.split(" ")[0];
+    fetch (url, {
       method: 'POST',
-      headers: {'Content-type': 'application/json'},
-      body: JSON.stringify({item, description, dateTime})
-     }).then(response => {
+      headers: {'Content-type' : 'application/json'},
+      body: JSON.stringify({
+        price,
+        item:item.substring(price.length+1), 
+        description, 
+        dateTime
+      })
+    }).then(response => {
       response.json().then(json => {
         console.log('result', json);
-      });
-     });
+        console.log(price);
+      })
+    })
 
   }
 
@@ -58,7 +66,7 @@ function App() {
       </form>
       <div className="transactions">
         <Transaction
-         name={"Bitcoin investment"}
+         item={"Bitcoin Investment"}
          description={"Gains from btc buying and selling"}
          price={"+$500"}
          datetime={"02/13/2023, 03:27"}
@@ -66,7 +74,7 @@ function App() {
         />
 
         <Transaction
-         name={"New Samsung TV"}
+         item={"New Samsung TV"}
          description={"it was time for new TV"}
          price={"-$600"}
          datetime={"02/13/2023, 03:27"}
@@ -74,7 +82,7 @@ function App() {
         />
 
         <Transaction
-         name={"Iphone 13"}
+         item={"Iphone 13"}
          description={"Sale of my Iphone 13"}
          price={"+$900"}
          datetime={"02/13/2023, 03:27"}
