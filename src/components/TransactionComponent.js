@@ -1,6 +1,6 @@
 import React from "react";
 
-const Transaction = ({ item, description, price, datetime, transactionType }) => {
+const TransactionComp = ({ item, description, price, datetime}) => {
   return (
     <div className="transaction">
 
@@ -10,11 +10,11 @@ const Transaction = ({ item, description, price, datetime, transactionType }) =>
     </div>
 
     <div className="right">
-      <div className={`price ${transactionType}`}>{price}</div>
+      <div className={"price " +(price < 0 ? "debit" : "credit")}>{price}</div>
       <div className="datetime">{datetime}</div>
     </div>
   </div>
   );
 };
 
-export default Transaction;
+export default TransactionComp;

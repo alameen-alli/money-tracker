@@ -1,21 +1,46 @@
 import './App.css'
+import React, {useEffect, useState } from 'react';
+import TransactionComp from './components/TransactionComponent'; 
 
-import React from 'react'
-
-import Transaction from './components/Transaction'; 
-import { useState } from 'react';
-// import { response } from 'express';
 
 function App() {
 
   const [item, setItem] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    getTransactions().then(setTransactions)
+  }, [])
+  
+  async function getTransactions () {
+    const url = 'http://localhost:4040/api/transactions';
+    const response = await fetch(url);
+    return await response.json();
+  }
+
+  // const renderTransactions = () => {
+  //   return (
+  //     <>
+  //       {transactions.length > 0 && transactions.map(transaction => (
+  //         <TransactionComp
+  //           item={transaction.item}
+  //           price={transaction.price}
+  //           datetime={transaction.dateTime}
+  //           description={transaction.description}
+  //         /> 
+  //       ))}
+  //     </>
+  //   );
+  // }
+  
+  
 
   function submitTransaction (e) {
-    e.preventDefault();
-    
-    const url = process.env.REACT_APP_API_URL+'/transaction';
+    e.preventDefault(); 
+
+    const url = 'http://localhost:4040/api/transaction';
     const price = item.split(" ")[0];
     fetch (url, {
       method: 'POST',
@@ -34,18 +59,27 @@ function App() {
         setDateTime('');
       })
     })
+      // renderTransactions();
+  };
 
+  let balance = 0;
+  for (const transaction of transactions) {
+    balance += transaction.price;
   }
+
+  balance = balance.toFixed(2);
+  const fraction = balance.split('.')[1];
+  balance = balance.split(".")[0];
 
   return (
     <div className="App">
       <main>
-      <h1>$400<span>.00</span></h1>
+      <h1>${balance}<span>{fraction}</span></h1>
       <form onSubmit={submitTransaction}>
         <div className="basic">
         <input 
         type="text" 
-        placeholder="Add new item"
+        placeholder="+200 Monthly Income"
         value={item}
         onChange={(e) => setItem(e.target.value)}
         />
@@ -65,31 +99,18 @@ function App() {
         />
         </div>
         <button type="submit">Add new transaction</button>
+        {transactions.length}
       </form>
       <div className="transactions">
-        <Transaction
-         item={"Bitcoin Investment"}
-         description={"Gains from btc buying and selling"}
-         price={"+$500"}
-         datetime={"02/13/2023, 03:27"}
-         transactionType={"credit"}
-        />
-
-        <Transaction
-         item={"New Samsung TV"}
-         description={"it was time for new TV"}
-         price={"-$600"}
-         datetime={"02/13/2023, 03:27"}
-         transactionType={"debit"}
-        />
-
-        <Transaction
-         item={"Iphone 13"}
-         description={"Sale of my Iphone 13"}
-         price={"+$900"}
-         datetime={"02/13/2023, 03:27"}
-         transactionType={"credit"}
-        />
+        {/* {renderTransactions()}; */}
+        {transactions.length > 0 && transactions.map(transaction => (
+        <TransactionComp
+         item={transaction.item}
+         price={transaction.price}
+         datetime={transaction.dateTime}
+         description={transaction.description}
+        /> 
+        ))}
       </div>
       </main>
     </div>

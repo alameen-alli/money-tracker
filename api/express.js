@@ -2,7 +2,8 @@
 
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '.env' });
 const app = express();
 const Transaction = require('./models/TransactionDB.js');
 const { default: mongoose } = require('mongoose');
